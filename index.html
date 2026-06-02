@@ -103,6 +103,14 @@ a{text-decoration:none;color:inherit}
 }
 .dot:hover .dot-label{opacity:1}
 
+/* ── Ambient Halo Glow ── */
+.ambient-halo{
+  position:fixed;top:50%;left:50%;width:100vw;height:100vh;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(201,169,110,.045) 0%,rgba(201,169,110,.015) 35%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+
 /* ── Scroll Track Dot ── */
 .scroll-track{
   position:fixed;left:50%;top:0;width:1px;height:100vh;
@@ -110,17 +118,16 @@ a{text-decoration:none;color:inherit}
   pointer-events:none;z-index:2;transform:translateX(-50%);
 }
 .scroll-dot{
-  position:fixed;left:50%;width:8px;height:8px;border-radius:50%;
+  position:fixed;left:50%;width:10px;height:10px;border-radius:50%;
   background:var(--accent);pointer-events:none;z-index:3;
   transform:translate(-50%,-50%);
-  box-shadow:0 0 12px rgba(201,169,110,.5),0 0 30px rgba(201,169,110,.15);
-  transition:box-shadow .3s;
+  box-shadow:0 0 8px rgba(201,169,110,.6),0 0 20px rgba(201,169,110,.25),0 0 40px rgba(201,169,110,.1);
 }
 .scroll-dot-glow{
-  position:fixed;left:50%;width:40px;height:40px;border-radius:50%;
-  background:radial-gradient(circle,rgba(201,169,110,.12) 0%,transparent 70%);
+  position:fixed;left:50%;width:50px;height:50px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,169,110,.18) 0%,transparent 70%);
   pointer-events:none;z-index:2;transform:translate(-50%,-50%);
-  filter:blur(8px);
+  filter:blur(10px);
 }
 
 /* ── Particles ── */
@@ -247,7 +254,7 @@ section{position:relative;z-index:5}
 }
 .deco-slats span{flex:1;background:var(--accent);border-radius:1px}
 
-/* ── VANGUARD FUND ── */
+/* ── FUND ── */
 .fund{background:var(--bg-deep);position:relative}
 .fund-intro{max-width:720px;margin-bottom:4rem}
 .fund-intro p{font-size:1.1rem;color:var(--text-primary)}
@@ -425,7 +432,7 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
   .contact-grid{grid-template-columns:1fr;gap:3rem}
   .hero-title{letter-spacing:.04em}
   .deco-slats,.deco-arch,.deco-circle{display:none}
-  .scroll-track,.scroll-dot,.scroll-dot-glow{display:none}
+  .scroll-track,.scroll-dot,.scroll-dot-glow,.ambient-halo{display:none}
   .section-dots{display:none}
   .prong-center-line,.prong-center-dot{display:none}
   .reveal-left,.reveal-right{transform:translateY(40px)}
@@ -440,6 +447,7 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 </head>
 <body>
 
+<div class="ambient-halo"></div>
 <div class="grain"></div>
 <div class="progress-bar" id="progressBar"></div>
 <div class="scroll-track"></div>
@@ -453,7 +461,7 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 <div class="section-dots" id="sectionDots">
   <a href="#hero" class="dot active"><span class="dot-label">Home</span></a>
   <a href="#about" class="dot"><span class="dot-label">About</span></a>
-  <a href="#fund" class="dot"><span class="dot-label">Fund</span></a>
+  <a href="#fund" class="dot"><span class="dot-label">Vanguard Fund</span></a>
   <a href="#leadership" class="dot"><span class="dot-label">Leadership</span></a>
   <a href="#contact" class="dot"><span class="dot-label">Contact</span></a>
 </div>
@@ -463,7 +471,7 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
   <a href="#hero" class="nav-logo">AI Capital</a>
   <div class="nav-links" id="navLinks">
     <a href="#about" onclick="closeNav()">About</a>
-    <a href="#fund" onclick="closeNav()">Fund</a>
+    <a href="#fund" onclick="closeNav()">Vanguard Fund</a>
     <a href="#leadership" onclick="closeNav()">Leadership</a>
     <a href="#contact" onclick="closeNav()">Contact</a>
   </div>
@@ -517,8 +525,8 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 <section class="fund angle-top-reverse" id="fund">
   <div class="deco-arch"></div>
   <div class="section-inner">
-    <div class="section-label reveal">02 &mdash; The Fund</div>
-    <h2 class="section-heading reveal reveal-delay-1">AIC Fund</h2>
+    <div class="section-label reveal">02 &mdash; Vanguard Fund</div>
+    <h2 class="section-heading reveal reveal-delay-1">AIC Vanguard Fund</h2>
     <div class="fund-intro reveal reveal-delay-2">
       <p>
         We deploy capital into publicly traded legacy software, running a concentrated book of high-conviction positions sized by conviction and downside risk. We screen for companies where the selloff appears sentiment-driven rather than fundamental. Each company is run through a two-pronged analysis, and all positions require a completed investment memo and a formal investment committee vote before capital is deployed.
@@ -606,7 +614,7 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
     <div class="contact-grid">
       <div class="contact-left">
         <p class="contact-text reveal reveal-delay-2">
-          For partnership inquiries, sponsorship, or to learn more about AI Capital and the AIC Fund.
+          For partnership inquiries, sponsorship, or to learn more about AI Capital and the AIC Vanguard Fund.
         </p>
         <a href="mailto:aicapitaloutreach@gmail.com" class="contact-email-link reveal reveal-delay-3">aicapitaloutreach@gmail.com</a>
       </div>
@@ -778,6 +786,12 @@ window.addEventListener('scroll',()=>{
   });ticking=true;}
 },{passive:true});
 updateProgress();updateDots();updateScrollDot();
+
+/* ── Continuous RAF loop for smooth scroll-dot tracking ── */
+(function rafLoop(){
+  updateScrollDot();
+  requestAnimationFrame(rafLoop);
+})();
 
 /* ── 3D Tilt on Founder Cards ── */
 document.querySelectorAll('[data-tilt]').forEach(card=>{
