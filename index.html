@@ -103,18 +103,24 @@ a{text-decoration:none;color:inherit}
 }
 .dot:hover .dot-label{opacity:1}
 
-/* ── Scroll Orb ── */
-.scroll-orb{
-  position:fixed;top:50%;left:50%;width:140px;height:140px;border-radius:50%;
-  background:radial-gradient(circle,rgba(201,169,110,.35) 0%,rgba(201,169,110,.08) 40%,transparent 70%);
-  filter:blur(30px);pointer-events:none;z-index:2;will-change:transform,opacity;
-  transform:translate(-50%,-50%);
+/* ── Scroll Track Dot ── */
+.scroll-track{
+  position:fixed;left:50%;top:0;width:1px;height:100vh;
+  background:linear-gradient(to bottom,transparent 5%,rgba(201,169,110,.07) 20%,rgba(201,169,110,.07) 80%,transparent 95%);
+  pointer-events:none;z-index:2;transform:translateX(-50%);
 }
-.scroll-orb-trail{
-  position:fixed;top:50%;left:50%;width:100px;height:100px;border-radius:50%;
-  background:radial-gradient(circle,rgba(201,169,110,.15) 0%,transparent 60%);
-  filter:blur(40px);pointer-events:none;z-index:1;will-change:transform,opacity;
+.scroll-dot{
+  position:fixed;left:50%;width:8px;height:8px;border-radius:50%;
+  background:var(--accent);pointer-events:none;z-index:3;
   transform:translate(-50%,-50%);
+  box-shadow:0 0 12px rgba(201,169,110,.5),0 0 30px rgba(201,169,110,.15);
+  transition:box-shadow .3s;
+}
+.scroll-dot-glow{
+  position:fixed;left:50%;width:40px;height:40px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,169,110,.12) 0%,transparent 70%);
+  pointer-events:none;z-index:2;transform:translate(-50%,-50%);
+  filter:blur(8px);
 }
 
 /* ── Particles ── */
@@ -419,6 +425,7 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
   .contact-grid{grid-template-columns:1fr;gap:3rem}
   .hero-title{letter-spacing:.04em}
   .deco-slats,.deco-arch,.deco-circle{display:none}
+  .scroll-track,.scroll-dot,.scroll-dot-glow{display:none}
   .section-dots{display:none}
   .prong-center-line,.prong-center-dot{display:none}
   .reveal-left,.reveal-right{transform:translateY(40px)}
@@ -435,8 +442,9 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
 
 <div class="grain"></div>
 <div class="progress-bar" id="progressBar"></div>
-<div class="scroll-orb"></div>
-<div class="scroll-orb-trail"></div>
+<div class="scroll-track"></div>
+<div class="scroll-dot-glow" id="scrollDotGlow"></div>
+<div class="scroll-dot" id="scrollDot"></div>
 <div class="parallax-line pl-1"></div>
 <div class="parallax-line pl-2"></div>
 <div class="parallax-line pl-3"></div>
@@ -739,31 +747,16 @@ if(prongSection){
   prongObs.observe(prongSection);
 }
 
-/* ── Golden Scroll Orb ── */
-const orb=document.querySelector('.scroll-orb');
-const orbTrail=document.querySelector('.scroll-orb-trail');
-const waypoints=[
-  [0,50,50,1,.7],[.12,50,85,.7,.5],[.25,30,40,.5,.45],
-  [.4,65,55,.55,.5],[.55,35,45,.4,.4],[.7,55,50,.35,.35],
-  [.85,50,45,.25,.2],[1,50,55,.15,.08]
-];
-function lerp(a,b,t){return a+(b-a)*t}
-function getOrbState(pct){
-  let i=0;while(i<waypoints.length-1&&waypoints[i+1][0]<pct)i++;
-  if(i>=waypoints.length-1){const w=waypoints[waypoints.length-1];return{x:w[1],y:w[2],s:w[3],o:w[4]}}
-  const a=waypoints[i],b=waypoints[i+1];const t=(pct-a[0])/(b[0]-a[0]);const sm=t*t*(3-2*t);
-  return{x:lerp(a[1],b[1],sm),y:lerp(a[2],b[2],sm),s:lerp(a[3],b[3],sm),o:lerp(a[4],b[4],sm)};
-}
-function updateOrb(){
+/* ── Scroll Tracking Dot ── */
+const scrollDot=document.getElementById('scrollDot');
+const scrollDotGlow=document.getElementById('scrollDotGlow');
+function updateScrollDot(){
   const docH=Math.max(document.documentElement.scrollHeight-window.innerHeight,1);
   const pct=Math.min(window.scrollY/docH,1);
-  const st=getOrbState(pct);
-  const x=st.x+Math.sin(pct*Math.PI*4)*6;
-  orb.style.left=x+'%';orb.style.top=st.y+'%';
-  orb.style.transform=`translate(-50%,-50%) scale(${st.s})`;orb.style.opacity=st.o;
-  const tp=Math.max(pct-.03,0);const tst=getOrbState(tp);const tx=tst.x+Math.sin(tp*Math.PI*4)*6;
-  orbTrail.style.left=tx+'%';orbTrail.style.top=tst.y+'%';
-  orbTrail.style.transform=`translate(-50%,-50%) scale(${tst.s*1.3})`;orbTrail.style.opacity=tst.o*.4;
+  /* dot travels from 15vh to 85vh */
+  const yPos=15+pct*70;
+  scrollDot.style.top=yPos+'vh';
+  scrollDotGlow.style.top=yPos+'vh';
 }
 
 /* ── Parallax Lines ── */
@@ -778,13 +771,13 @@ function updateParallax(){
 let ticking=false;
 window.addEventListener('scroll',()=>{
   if(!ticking){requestAnimationFrame(()=>{
-    updateProgress();updateDots();updateOrb();updateParallax();
+    updateProgress();updateDots();updateScrollDot();updateParallax();
     const si=document.querySelector('.hero-scroll-indicator');
     if(si)si.style.opacity=Math.max(1-window.scrollY/300,0);
     ticking=false;
   });ticking=true;}
 },{passive:true});
-updateProgress();updateDots();updateOrb();
+updateProgress();updateDots();updateScrollDot();
 
 /* ── 3D Tilt on Founder Cards ── */
 document.querySelectorAll('[data-tilt]').forEach(card=>{
