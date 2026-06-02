@@ -6,7 +6,7 @@
 <title>AI Capital</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:hidden}
@@ -37,7 +37,7 @@ body{
   --t-fast:.35s var(--ease);
 }
 
-h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:300;color:var(--text-hero);line-height:1.1}
+h1,h2,h3,h4{font-family:'Book Antiqua','Palatino Linotype',Palatino,serif;font-weight:300;color:var(--text-hero);line-height:1.1}
 p{line-height:1.75;font-size:1.05rem}
 a{text-decoration:none;color:inherit}
 
@@ -67,7 +67,7 @@ a{text-decoration:none;color:inherit}
   padding:1.2rem 3.5rem;border-bottom:1px solid var(--gold-line);
 }
 .nav-logo{
-  font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;
+  font-family:'Book Antiqua','Palatino Linotype',Palatino,serif;font-size:1.15rem;font-weight:500;
   letter-spacing:.35em;color:var(--text-hero);text-transform:uppercase;
 }
 .nav-links{display:flex;gap:2.5rem}
@@ -199,7 +199,7 @@ section{position:relative;z-index:5}
 }
 @keyframes charReveal{to{opacity:1;transform:translateY(0)}}
 .hero-tagline{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Book Antiqua','Palatino Linotype',Palatino,serif;
   font-size:clamp(1.1rem,2.2vw,1.4rem);font-weight:300;font-style:italic;
   color:var(--text-secondary);max-width:520px;margin:0 auto 3rem;
   opacity:0;transform:translateY(20px);animation:fadeUp 1s var(--ease) 1s forwards;
@@ -241,7 +241,7 @@ section{position:relative;z-index:5}
 .about{background:var(--bg-primary);position:relative}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem}
 .about-lead{
-  font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:300;
+  font-family:'Book Antiqua','Palatino Linotype',Palatino,serif;font-size:1.55rem;font-weight:300;
   line-height:1.6;color:var(--text-hero);
 }
 .about-body p{margin-bottom:1.5rem;color:var(--text-primary)}
@@ -311,7 +311,7 @@ section{position:relative;z-index:5}
 }
 .founder-card:hover{border-color:rgba(201,169,110,.3)}
 .founder-initials{
-  font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;
+  font-family:'Book Antiqua','Palatino Linotype',Palatino,serif;font-size:2.8rem;font-weight:300;
   color:var(--accent);opacity:.5;margin-bottom:1.5rem;line-height:1;
 }
 .founder-card h3{font-size:1.4rem;font-weight:400;margin-bottom:.4rem}
@@ -329,7 +329,7 @@ section{position:relative;z-index:5}
   background:rgba(201,169,110,.01);transition:all var(--t-fast);cursor:default;
 }
 .team-role:hover{border-color:var(--gold-line);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
-.team-role-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--text-hero);font-weight:400}
+.team-role-title{font-family:'Book Antiqua','Palatino Linotype',Palatino,serif;font-size:1.05rem;color:var(--text-hero);font-weight:400}
 .team-role-type{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-top:.4rem}
 
 /* Decorative circle */
@@ -345,7 +345,7 @@ section{position:relative;z-index:5}
 .contact-left{}
 .contact-text{margin-bottom:2rem;color:var(--text-secondary);max-width:400px}
 .contact-email-link{
-  font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;
+  font-family:'Book Antiqua','Palatino Linotype',Palatino,serif;font-size:1.5rem;font-weight:400;
   color:var(--accent);position:relative;transition:color var(--t-fast);display:inline-block;
 }
 .contact-email-link::after{
@@ -521,12 +521,25 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
   </div>
 </section>
 
-<!-- ════════ FUND ════════ -->
+<!-- ════════ FUND MISSION ════════ -->
 <section class="fund angle-top-reverse" id="fund">
   <div class="deco-arch"></div>
   <div class="section-inner">
     <div class="section-label reveal">02 &mdash; Vanguard Fund</div>
     <h2 class="section-heading reveal reveal-delay-1">AIC Vanguard Fund</h2>
+    <div class="fund-intro reveal reveal-delay-2">
+      <p>
+        Our fund is built around a defined investment mandate, a rigorous bottom-up analytical process, an actively managed portfolio, and published research we stand behind. Our thesis is not stagnant; we reassess and recalibrate our mandate every quarter. In a market defined by relentless innovation and constant disruption, intellectual rigidity is a liability. By regularly revisiting our core analytical framework, we ensure our portfolio reflects the most current and defensible view of where AI is creating and destroying value.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CURRENT THESIS ════════ -->
+<section class="fund" id="thesis" style="padding-top:2rem">
+  <div class="section-inner">
+    <div class="section-label reveal">Current Thesis</div>
+    <h2 class="section-heading reveal reveal-delay-1" style="font-size:2.4rem">Q4 2026 Thesis</h2>
     <div class="fund-intro reveal reveal-delay-2">
       <p>
         We deploy capital into publicly traded legacy software, running a concentrated book of high-conviction positions sized by conviction and downside risk. We screen for companies where the selloff appears sentiment-driven rather than fundamental. Each company is run through a two-pronged analysis, and all positions require a completed investment memo and a formal investment committee vote before capital is deployed.
