@@ -567,7 +567,7 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
         <div class="founder-initials">LvH</div>
         <h3>Lea von Hilgers</h3>
         <span class="founder-role">Co-Founder &middot; Head of Operations & Sponsorship</span>
-        <p>As Head of Operations and Sponsorship, she oversees the group's strategic partnerships, external communications, and day-to-day execution.</p>
+        <p>Lea brings operational rigour and a sharp eye for positioning to AI Capital. As Head of Operations and Sponsorship, she oversees the group's strategic partnerships, external communications, and day-to-day execution.</p>
       </div>
       <div class="founder-card reveal-scale reveal-delay-3" data-tilt>
         <div class="founder-initials">YS</div>
@@ -603,19 +603,23 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
         <a href="mailto:aicapitaloutreach@gmail.com" class="contact-email-link reveal reveal-delay-3">aicapitaloutreach@gmail.com</a>
       </div>
 
-      <form class="contact-form reveal reveal-delay-3" id="contactForm">
+      <form class="contact-form reveal reveal-delay-3" id="contactForm" action="https://formsubmit.co/aicapitaloutreach@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New AI Capital Inquiry">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none">
         <div class="form-field">
-          <input type="text" id="cf-name" required placeholder=" ">
+          <input type="text" id="cf-name" name="name" required placeholder=" ">
           <label for="cf-name">Name</label>
           <div class="field-line"></div>
         </div>
         <div class="form-field">
-          <input type="email" id="cf-email" required placeholder=" ">
+          <input type="email" id="cf-email" name="email" required placeholder=" ">
           <label for="cf-email">Email</label>
           <div class="field-line"></div>
         </div>
         <div class="form-field">
-          <select id="cf-type" required>
+          <select id="cf-type" name="inquiry_type" required>
             <option value="" disabled selected hidden></option>
             <option value="Partnership">Partnership</option>
             <option value="Sponsorship">Sponsorship</option>
@@ -626,11 +630,12 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
           <div class="field-line"></div>
         </div>
         <div class="form-field">
-          <textarea id="cf-message" required placeholder=" " rows="4"></textarea>
+          <textarea id="cf-message" name="message" required placeholder=" " rows="4"></textarea>
           <label for="cf-message">Message</label>
           <div class="field-line"></div>
         </div>
         <button type="submit" class="form-submit"><span>Send Inquiry</span></button>
+        <p class="form-status" id="formStatus" style="margin-top:1rem;text-align:center;font-size:.9rem;opacity:0;transition:opacity .5s"></p>
       </form>
     </div>
   </div>
@@ -808,13 +813,33 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 /* ── Contact Form ── */
 document.getElementById('contactForm').addEventListener('submit',function(e){
   e.preventDefault();
-  const name=document.getElementById('cf-name').value;
-  const email=document.getElementById('cf-email').value;
-  const type=document.getElementById('cf-type').value;
-  const msg=document.getElementById('cf-message').value;
-  const subject=encodeURIComponent('AI Capital Inquiry — '+type);
-  const body=encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nType: '+type+'\n\n'+msg);
-  window.location.href='mailto:aicapitaloutreach@gmail.com?subject='+subject+'&body='+body;
+  const form=e.target;
+  const btn=form.querySelector('.form-submit');
+  const status=document.getElementById('formStatus');
+  btn.disabled=true;
+  btn.querySelector('span').textContent='Sending...';
+  fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+  .then(function(r){
+    if(r.ok){
+      status.style.color='var(--accent)';
+      status.textContent='Inquiry sent successfully.';
+      status.style.opacity='1';
+      form.reset();
+    }else{
+      status.style.color='#c44';
+      status.textContent='Something went wrong. Please try again.';
+      status.style.opacity='1';
+    }
+    btn.disabled=false;
+    btn.querySelector('span').textContent='Send Inquiry';
+  })
+  .catch(function(){
+    status.style.color='#c44';
+    status.textContent='Network error. Please try again.';
+    status.style.opacity='1';
+    btn.disabled=false;
+    btn.querySelector('span').textContent='Send Inquiry';
+  });
 });
 </script>
 </body>
