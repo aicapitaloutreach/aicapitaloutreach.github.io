@@ -338,6 +338,18 @@ section{position:relative;z-index:5}
   border:1px solid rgba(201,169,110,.04);border-radius:50%;pointer-events:none;
 }
 
+/* ── Values Section ── */
+.values-divider{display:flex;align-items:center;gap:1.5rem;margin:5rem auto 0;max-width:300px}
+.values-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+.values-diamond{width:8px;height:8px;background:var(--accent);transform:rotate(45deg);box-shadow:0 0 12px rgba(201,169,110,.4);flex-shrink:0}
+.values-heading{text-align:center;font-size:1.8rem;margin:2rem 0 3rem}
+.values-grid{display:flex;flex-direction:column;gap:1.5rem;max-width:800px;margin:0 auto;padding-bottom:2rem}
+.value-card{display:flex;gap:2rem;align-items:flex-start;padding:2rem 2.5rem;border-left:2px solid var(--accent-dim);background:linear-gradient(135deg,rgba(201,169,110,.03) 0%,transparent 60%);border-radius:0 2px 2px 0;transition:all var(--t-med)}
+.value-card:hover{border-left-color:var(--accent);background:linear-gradient(135deg,rgba(201,169,110,.06) 0%,transparent 60%);transform:translateX(4px)}
+.value-number{font-family:'Book Antiqua','Palatino Linotype',Palatino,serif;font-size:1.8rem;color:var(--accent);opacity:.3;line-height:1;min-width:2rem}
+.value-content p{color:var(--text-secondary);font-size:.95rem;line-height:1.8}
+@media(max-width:900px){.value-card{padding:1.5rem;gap:1.2rem}.value-number{font-size:1.4rem}}
+
 /* ── CONTACT ── */
 .contact{background:var(--bg-deep);border-top:1px solid var(--gold-line);position:relative}
 .contact .section-inner{padding:8rem 3rem}
@@ -619,18 +631,35 @@ footer p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(
         <div class="team-role"><div class="team-role-title">External Consultants</div><div class="team-role-type">3 Positions</div></div>
       </div>
     </div>
-  </div>
 
-
-        <div class="values-section reveal reveal-delay-5" style="max-width:1100px;margin:0 auto;padding:3rem 2rem 0;">
-          <h3 style="text-align:center;margin-bottom:1.5rem;">Our Values</h3>
-          <div style="max-width:720px;margin:0 auto;color:var(--text-secondary);line-height:1.8;text-align:center;">
-            <p>AI is restructuring capital allocation across industries, and formal student engagement with that shift matters. AI Capital exists to be the serious, structured home for that analysis, contributing original thinking to one of the most consequential transitions in modern finance.</p>
-            <p style="margin-top:1rem;">We hold ourselves to the standards of investment professionals: integrity, rigour, and intellectual honesty in everything we publish and present.</p>
-            <p style="margin-top:1rem;">As members grow, they carry a responsibility to mentor those who follow. We invest in every member's development as an analyst, a thinker, and a future leader in finance.</p>
-          </div>
+    <div class="values-divider reveal">
+      <span class="values-line"></span>
+      <span class="values-diamond"></span>
+      <span class="values-line"></span>
+    </div>
+    <h3 class="values-heading reveal">Our Values</h3>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-number">01</div>
+        <div class="value-content">
+          <p>AI is restructuring capital allocation across industries, and formal student engagement with that shift matters. AI Capital exists to be the serious, structured home for that analysis, contributing original thinking to one of the most consequential transitions in modern finance.</p>
         </div>
+      </div>
+      <div class="value-card reveal reveal-delay-1">
+        <div class="value-number">02</div>
+        <div class="value-content">
+          <p>We hold ourselves to the standards of investment professionals: integrity, rigour, and intellectual honesty in everything we publish and present.</p>
+        </div>
+      </div>
+      <div class="value-card reveal reveal-delay-2">
+        <div class="value-number">03</div>
+        <div class="value-content">
+          <p>As members grow, they carry a responsibility to mentor those who follow. We invest in every member's development as an analyst, a thinker, and a future leader in finance.</p>
+        </div>
+      </div>
+    </div>
 
+  </div>
 </section>
 
 <!-- ════════ CONTACT ════════ -->
